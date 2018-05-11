@@ -1,0 +1,90 @@
+package id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter;
+
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+
+import java.util.List;
+
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.R;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataHadiahController;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataPerolehanPelangganController;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
+
+/**
+ * Created by adhi on 07/05/18.
+ */
+
+public class DataPerolehanPelangganAdapter extends BaseAdapter {
+
+
+    private List<DataPerolehanPelangganController> data;
+    Activity activity;
+    TextView tglpasif, namapelanggan, jumlahpoint;
+    NetworkImageView fotopelanggan;
+    ImageLoader mImageLoader;
+    String url = Server.url_server +"img/profil/";
+    String IMAGE_URL ;
+
+    public DataPerolehanPelangganAdapter(Activity activity, List<DataPerolehanPelangganController> data) {
+        super();
+        this.data = data;
+        this.activity = activity;
+    }
+
+    @Override
+    public int getCount() {
+        return data.size();
+    }
+
+    @Override
+    public Object getItem(int location) {
+        return data.get(location);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        View v = convertView;
+
+        if (v == null) {
+            LayoutInflater vi;
+            vi = LayoutInflater.from(activity);
+            v = vi.inflate(R.layout.listdataperolehanpelanggan, null);
+
+            tglpasif = (TextView) v.findViewById(R.id.listtglpasif);
+            namapelanggan = (TextView) v.findViewById(R.id.listnamapelanggan);
+            fotopelanggan = (NetworkImageView) v.findViewById(R.id.listfotopelanggan);
+            jumlahpoint = (TextView) v.findViewById(R.id.listjumlah_pointpelanggan);
+
+            DataPerolehanPelangganController d = data.get(position);
+
+            tglpasif.setText(String.valueOf(d.getTanggal_pasif()));
+            namapelanggan.setText(String.valueOf(d.getNama_pelanggan()));
+            jumlahpoint.setText(String.valueOf(d.getJumlah_point()));
+
+            mImageLoader = MySingleton.getInstance(this.activity.getApplicationContext()).getImageLoader();
+            IMAGE_URL = url + String.valueOf(d.getFoto_pelanggan());
+            fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+
+
+        }else{
+
+        }
+
+        return v;
+    }
+
+}
