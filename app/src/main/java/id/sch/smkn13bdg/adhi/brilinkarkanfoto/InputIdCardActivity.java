@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,7 +29,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataPerolehanPelangganController;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
 
@@ -126,10 +124,15 @@ public class InputIdCardActivity extends AppCompatActivity {
 
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
 
-                                String tglpasif = jsonobject.getString("tanggal_pasif").trim();
+                                String idpelanggan = jsonobject.getString("id_pelanggan").trim();
                                 String nama_pelanggan = jsonobject.getString("nama_pelanggan").trim();
-                                String foto_pelanggan = jsonobject.getString("foto_pelanggan").trim();
-                                String jumlah_point_pelanggan = jsonobject.getString("jumlah_point").trim();
+                                String no_kartu = jsonobject.getString("no_kartu").trim();
+
+                                UserController user = new UserController(idpelanggan, nama_pelanggan, no_kartu);
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                                finish();
+
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                             }
                         } catch (JSONException e) {
@@ -149,14 +152,17 @@ public class InputIdCardActivity extends AppCompatActivity {
                     }
                 }
 
-        ){
+        )
+        {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("idkartu", idkartu);
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("no_kartu", idkartu);
                 return params;
             }
         };
+
 
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
     }

@@ -12,6 +12,10 @@ public class UserController {
     private String kontak;
     private String alamat;
 
+    public UserController(String no_kartu){
+        this.no_kartu = no_kartu;
+    }
+
     public UserController(String id_pelanggan, String nama_pelanggan, String no_kartu ) {
         this.id_pelanggan = id_pelanggan;
         this.nama_pelanggan = nama_pelanggan;
