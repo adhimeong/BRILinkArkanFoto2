@@ -28,9 +28,9 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="kode kartu"
         android:textAlignment="center"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/button"
@@ -38,5 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOGIN"
-        android:textColor="@color/cardview_light_background" />
+        android:textAlignment="center"
+        android:textColor="@color/cardview_light_background"
+        android:textStyle="bold" />
 </LinearLayout>
