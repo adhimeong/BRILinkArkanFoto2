@@ -1,10 +1,9 @@
-package id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley;
+package id.sch.smkn13bdg.adhi.brilinkarkanfoto;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.MainActivity;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 
 /**
