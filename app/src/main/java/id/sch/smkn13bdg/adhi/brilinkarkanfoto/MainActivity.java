@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         //if the user is not logged in
         //starting the login activity
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PointKuFragment()).commit();
         } else if (id == R.id.nav_send) {
-
+            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
