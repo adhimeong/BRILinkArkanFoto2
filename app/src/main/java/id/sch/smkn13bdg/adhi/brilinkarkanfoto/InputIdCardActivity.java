@@ -39,12 +39,12 @@ public class InputIdCardActivity extends AppCompatActivity {
 
     public Button loginbtn;
     public EditText result;
-    public String idkartu;
     public static final int REQUEST_CODE = 100;
     public static final int PERMISSION_REQUEST = 200;
     private ProgressDialog pd;
     String urldata = "app/login.php";
     String url = Server.url_server +urldata;
+    String idkartu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class InputIdCardActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setMessage("loading");
 
-        //if the user is already logged in we will directly start the profile activity
+        //if the user is already logged in we will directly start the main activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
             startActivity(new Intent(this, MainActivity.class));
@@ -91,12 +91,16 @@ public class InputIdCardActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         result.setText(barcode.displayValue);
-                        idkartu = String.valueOf(barcode.displayValue);
                     }
                 });
             }
         }
 
+    }
+
+    private void userLogin(){
+        idkartu = result.getText().toString();
+        load_data_from_server();
     }
 
     public void load_data_from_server() {
