@@ -79,6 +79,14 @@ public class InputIdCardActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                idkartu = result.getText().toString();
+                load_data_from_server();
+            }
+        });
     }
 
     @Override
@@ -98,10 +106,6 @@ public class InputIdCardActivity extends AppCompatActivity {
 
     }
 
-    private void userLogin(){
-        idkartu = result.getText().toString();
-        load_data_from_server();
-    }
 
     public void load_data_from_server() {
         pd.show();
