@@ -13,7 +13,7 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="13dp"
+        android:layout_margin="23dp"
         android:text="MASUKAN KODE KARTU"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
@@ -21,7 +21,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editidkartu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -30,10 +30,10 @@
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textColor="@color/colorAccent"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnlogin"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
