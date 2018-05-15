@@ -23,10 +23,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.DataHadiahAdapter;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataHadiahController;
+import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
 
@@ -47,6 +50,7 @@ public class PointKuFragment extends Fragment {
 
     String urldata2 = "app/perolehanpoint.php";
     String url2 = Server.url_server +urldata2;
+    String no_kartu;
 
     //list costume adapter
     List<DataHadiahController> dataController = new ArrayList<DataHadiahController>();
@@ -66,6 +70,9 @@ public class PointKuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pointku, container, false);
+
+        UserController user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
+        no_kartu = user.getNo_kartu();
 
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
@@ -225,7 +232,16 @@ public class PointKuFragment extends Fragment {
                     }
                 }
 
-        );
+        )
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("no_kartu", no_kartu);
+                return params;
+            }
+        };
 
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
     }
