@@ -19,6 +19,7 @@ public class MySingleton {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
+    LruBitmapCache mLruBitmapCache;
 
     private MySingleton(Context context) {
         mCtx = context;
@@ -63,4 +64,11 @@ public class MySingleton {
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
+
+    public LruBitmapCache getLruBitmapCache() {
+        if (mLruBitmapCache == null)
+            mLruBitmapCache = new LruBitmapCache();
+        return this.mLruBitmapCache;
+    }
+
 }
