@@ -57,11 +57,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_peringkat) {
+            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new UtamaFragment()).commit();
+        } else if (id == R.id.nav_pointku) {
             // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PointKuFragment()).commit();
-        } else if (id == R.id.nav_send) {
-            // Handle the camera action
+        } else if(id == R.id.nav_profil){
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
         }
 

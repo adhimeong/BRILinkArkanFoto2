@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="id.sch.smkn13bdg.adhi.brilinkarkanfoto.UpdateProfilFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:padding="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/updateprevimage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/defaultprofile"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"/>
+
+            <Button
+                android:id="@+id/updatefoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="foto"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_marginBottom="20dp"/>
+
+            <EditText
+                android:id="@+id/updatenama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nama"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorAccent"/>
+
+            <EditText
+                android:id="@+id/updateemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorAccent"/>
+
+            <EditText
+                android:id="@+id/updatekontak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nomor Kontak"
+                android:inputType="phone"
+                android:textColor="@color/colorAccent"/>
+
+            <EditText
+                android:id="@+id/updatealamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Alamat"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:selectAllOnFocus="false"
+                android:singleLine="false"
+                android:textColor="@color/colorAccent"/>
+
+            <Button
+                android:id="@+id/btnupdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PERBAHARUI"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

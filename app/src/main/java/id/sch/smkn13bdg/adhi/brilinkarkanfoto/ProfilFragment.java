@@ -18,7 +18,7 @@ import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 public class ProfilFragment extends Fragment {
 
     TextView idpengguna, nama, nokartu;
-    Button logoutbtn;
+    Button logoutbtn, updatebtn;
 
 
     public ProfilFragment() {
@@ -35,6 +35,8 @@ public class ProfilFragment extends Fragment {
         nama = (TextView) view.findViewById(R.id.txtprofilnama);
         nokartu = (TextView) view.findViewById(R.id.txtprofilnokartu);
         logoutbtn = (Button) view.findViewById(R.id.btnlogout);
+        updatebtn = (Button) view.findViewById(R.id.btnupdateprofil);
+
 
         //getting the current user
         UserController user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
@@ -47,6 +49,13 @@ public class ProfilFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).logout();
+            }
+        });
+
+        updatebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new UpdateProfilFragment()).commit();
             }
         });
 

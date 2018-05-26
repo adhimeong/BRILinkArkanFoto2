@@ -5,18 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Point Ku" />
+            android:id="@+id/nav_peringkat"
+            android:icon="@drawable/ic_assessment_black_24dp"
+            android:title="Peringkat" />
+        <item
+            android:id="@+id/nav_pointku"
+            android:icon="@drawable/ic_cake_black_24dp"
+            android:title="Point Rewards" />
 
     </group>
 
-    <item android:title="Pengumuman">
+    <item android:title="Pengaturan">
         <menu>
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Promo Terbaru" />
+                android:id="@+id/nav_profil"
+                android:icon="@drawable/ic_person_black_24dp"
+                android:title="Profil" />
         </menu>
     </item>
 
