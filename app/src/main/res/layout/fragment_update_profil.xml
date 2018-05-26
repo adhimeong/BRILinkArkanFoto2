@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nama"
+                android:hint="Nama*"
                 android:inputType="textPersonName"
                 android:textColor="@color/colorAccent"/>
 
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nomor Kontak"
+                android:hint="Nomor Kontak*"
                 android:inputType="phone"
                 android:textColor="@color/colorAccent"/>
 
