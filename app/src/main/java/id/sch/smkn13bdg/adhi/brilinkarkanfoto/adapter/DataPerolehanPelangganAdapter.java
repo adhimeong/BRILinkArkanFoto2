@@ -30,7 +30,7 @@ public class DataPerolehanPelangganAdapter extends BaseAdapter {
     TextView tglpasif, namapelanggan, jumlahpoint;
     NetworkImageView fotopelanggan;
     ImageLoader mImageLoader;
-    String url = Server.url_server +"img/profil/";
+    String url = Server.url_server +"app/images/";
     String IMAGE_URL ;
 
     public DataPerolehanPelangganAdapter(Activity activity, List<DataPerolehanPelangganController> data) {

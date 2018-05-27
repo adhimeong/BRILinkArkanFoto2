@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
@@ -46,6 +48,12 @@ import static android.app.Activity.RESULT_OK;
  */
 public class UpdateProfilFragment extends Fragment {
 
+    NetworkImageView imageprev;
+    ImageLoader mImageLoader;
+    String url = Server.url_server +"app/images/";
+    String IMAGE_URL ;
+    String fotodefault = "defaultprofile.jpg";
+
     private ProgressDialog pd;
     String urldata2 = "app/profilpelanggan.php";
     String url2 = Server.url_server +urldata2;
@@ -60,7 +68,6 @@ public class UpdateProfilFragment extends Fragment {
     Bitmap bitmap, decoded;
     int PICK_IMAGE_REQUEST = 1;
     int bitmap_size = 60; // range 1 - 100
-    ImageView imageprev;
 
     Button btnfoto, btnupdate;
 
@@ -80,7 +87,7 @@ public class UpdateProfilFragment extends Fragment {
         editalamat = (EditText) view.findViewById(R.id.updatealamat);
         btnupdate = (Button) view.findViewById(R.id.btnupdate);
         btnfoto = (Button) view.findViewById(R.id.btnpilihfoto);
-        imageprev = (ImageView) view.findViewById(R.id.updateprevimage);
+        imageprev = (NetworkImageView) view.findViewById(R.id.updateprevimage);
 
         //getting the current user
         UserController user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
@@ -118,7 +125,6 @@ public class UpdateProfilFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-
     }
 
     public String getStringImage(Bitmap bmp) {
@@ -178,6 +184,7 @@ public class UpdateProfilFragment extends Fragment {
         final String emailupdate = editemail.getText().toString();
         final String kontakupdate = editkontak.getText().toString();
         final String alamatupdate = editalamat.getText().toString();
+        final String fotoupdate = getStringImage(decoded);
 
         pd.show();
 
@@ -189,6 +196,7 @@ public class UpdateProfilFragment extends Fragment {
                     public void onResponse(String response) {
 
                         Log.d("Response: ",response.toString());
+                        Log.d("foto yang dipilih: ", fotoupdate);
                         try {
                             JSONObject jObj = new JSONObject(response);
                             success = jObj.getInt("success");
@@ -229,6 +237,7 @@ public class UpdateProfilFragment extends Fragment {
                 params.put("no_kartu", nokartu);
                 params.put("nama", namaupdate);
                 params.put("email", emailupdate);
+                params.put("foto", fotoupdate);
                 params.put("kontak", kontakupdate);
                 params.put("alamat", alamatupdate);
                 return params;
@@ -261,6 +270,7 @@ public class UpdateProfilFragment extends Fragment {
                                  String id_pelanggan = jsonobject.getString("id_pelanggan").trim();
                                  String no_kartu= jsonobject.getString("no_kartu").trim();
                                  String nama = jsonobject.getString("nama_pelanggan").trim();
+                                 String foto = jsonobject.getString("foto");
                                  String password = jsonobject.getString("password").trim();
                                  String alamat = jsonobject.getString("alamat").trim();
                                  String kontak = jsonobject.getString("kontak").trim();
@@ -288,6 +298,16 @@ public class UpdateProfilFragment extends Fragment {
                                     editalamat.setText(null);
                                 }else{
                                     editalamat.setText(alamat);
+                                }
+
+                                if (foto.equals("null")){
+                                    mImageLoader = MySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader();
+                                    IMAGE_URL = url + String.valueOf(fotodefault);
+                                    imageprev.setImageUrl(IMAGE_URL, mImageLoader);
+                                }else{
+                                    mImageLoader = MySingleton.getInstance(getActivity().getApplicationContext()).getImageLoader();
+                                    IMAGE_URL = url + String.valueOf(foto);
+                                    imageprev.setImageUrl(IMAGE_URL, mImageLoader);
                                 }
                             }
                         } catch (JSONException e) {
