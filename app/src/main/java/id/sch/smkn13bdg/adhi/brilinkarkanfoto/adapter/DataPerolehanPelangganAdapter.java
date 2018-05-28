@@ -1,9 +1,15 @@
 package id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -22,69 +28,75 @@ import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
  * Created by adhi on 07/05/18.
  */
 
-public class DataPerolehanPelangganAdapter extends BaseAdapter {
+public class DataPerolehanPelangganAdapter extends ArrayAdapter<DataPerolehanPelangganController> implements View.OnClickListener {
 
 
     private List<DataPerolehanPelangganController> data;
-    Activity activity;
-    TextView tglpasif, namapelanggan, jumlahpoint;
-    NetworkImageView fotopelanggan;
+
     ImageLoader mImageLoader;
     String url = Server.url_server +"app/images/";
     String IMAGE_URL ;
+    Context mContext;
 
-    public DataPerolehanPelangganAdapter(Activity activity, List<DataPerolehanPelangganController> data) {
-        super();
+    private static class ViewHolder {
+        TextView tglpasif;
+        TextView namapelanggan;
+        TextView jumlahpoint;
+        NetworkImageView fotopelanggan;
+    }
+
+    public DataPerolehanPelangganAdapter(List<DataPerolehanPelangganController> data, Context context) {
+        super(context, R.layout.listdataperolehanpelanggan, data);
         this.data = data;
-        this.activity = activity;
+        this.mContext=context;
     }
 
     @Override
-    public int getCount() {
-        return data.size();
+    public void onClick(View v) {
+        int position=(Integer) v.getTag();
+        Object object= getItem(position);
+        DataPerolehanPelangganController data =(DataPerolehanPelangganController)object;
+
     }
 
+    @NonNull
     @Override
-    public Object getItem(int location) {
-        return data.get(location);
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+        DataPerolehanPelangganController data = getItem(position);
+        ViewHolder viewHolder;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+        final View result;
 
-        View v = convertView;
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.listdataperolehanpelanggan, parent, false);
 
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(activity);
-            v = vi.inflate(R.layout.listdataperolehanpelanggan, null);
+            viewHolder.tglpasif = (TextView) convertView.findViewById(R.id.listtglpasif);
+            viewHolder.namapelanggan = (TextView) convertView.findViewById(R.id.listnamapelanggan);
+            viewHolder.fotopelanggan = (NetworkImageView) convertView.findViewById(R.id.listfotopelanggan);
+            viewHolder.jumlahpoint = (TextView) convertView.findViewById(R.id.listjumlah_pointpelanggan);
 
-            tglpasif = (TextView) v.findViewById(R.id.listtglpasif);
-            namapelanggan = (TextView) v.findViewById(R.id.listnamapelanggan);
-            fotopelanggan = (NetworkImageView) v.findViewById(R.id.listfotopelanggan);
-            jumlahpoint = (TextView) v.findViewById(R.id.listjumlah_pointpelanggan);
+            result = convertView;
 
-            DataPerolehanPelangganController d = data.get(position);
-
-            tglpasif.setText(String.valueOf(d.getTanggal_pasif()));
-            namapelanggan.setText(String.valueOf(d.getNama_pelanggan()));
-            jumlahpoint.setText(String.valueOf(d.getJumlah_point()));
-
-            mImageLoader = MySingleton.getInstance(this.activity.getApplicationContext()).getImageLoader();
-            IMAGE_URL = url + String.valueOf(d.getFoto_pelanggan());
-            fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+            convertView.setTag(viewHolder);
 
 
         }else{
+            viewHolder = (ViewHolder) convertView.getTag();
+            result=convertView;
 
         }
 
-        return v;
-    }
+        viewHolder.tglpasif.setText(String.valueOf(data.getTanggal_pasif()));
+        viewHolder.namapelanggan.setText(String.valueOf(data.getNama_pelanggan()));
+        viewHolder.jumlahpoint.setText(String.valueOf(data.getJumlah_point()));
 
+        mImageLoader = MySingleton.getInstance(getContext()).getImageLoader();
+        IMAGE_URL = url + String.valueOf(data.getFoto_pelanggan());
+        viewHolder.fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+
+        return convertView;
+    }
 }

@@ -83,9 +83,12 @@ public class PointKuFragment extends Fragment {
         sisaproses = (TextView) view.findViewById(R.id.textsisatransaksi);
 
         listView = (ListView)view.findViewById(R.id.listview01);
+        dataController.clear();
+
         adapter = new DataHadiahAdapter(getActivity(), dataController );
 
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {

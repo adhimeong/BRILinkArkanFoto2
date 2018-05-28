@@ -4,6 +4,8 @@ package id.sch.smkn13bdg.adhi.brilinkarkanfoto;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.DataHadiahAdapter;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.DataPerolehanPelangganAdapter;
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataHadiahController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataPerolehanPelangganController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
@@ -81,9 +81,12 @@ public class UtamaFragment extends Fragment {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
-        listView = (ListView)view.findViewById(R.id.listview02);
-        adapter = new DataPerolehanPelangganAdapter(getActivity(), dataController );
+        listView = (ListView) view.findViewById(R.id.listview02);
+
+        adapter = new DataPerolehanPelangganAdapter(dataController, getActivity());
+
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         pointperolehan = (TextView) view.findViewById(R.id.txtpoint);
         tglpasif = (TextView) view.findViewById(R.id.texttglpasif);
