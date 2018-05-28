@@ -1,9 +1,13 @@
 package id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -23,69 +27,73 @@ import static java.security.AccessController.getContext;
  * Created by adhi on 07/05/18.
  */
 
-public class DataHadiahAdapter extends BaseAdapter {
+public class DataHadiahAdapter extends ArrayAdapter<DataHadiahController> implements View.OnClickListener {
 
 
     private List<DataHadiahController> data;
-    Activity activity;
-    TextView idhadiah, namahadiah, jumlahpoint;
-    NetworkImageView fotohadiah;
+
+
     ImageLoader mImageLoader;
     String url = Server.url_server +"img/hadiah/";
     String IMAGE_URL ;
+    Context mContext;
 
-    public DataHadiahAdapter(Activity activity, List<DataHadiahController> data) {
-        super();
+    private static class ViewHolder {
+        TextView idhadiah;
+        TextView namahadiah;
+        TextView jumlahpoint;
+        NetworkImageView fotohadiah;
+    }
+
+    public DataHadiahAdapter(List<DataHadiahController> data, Context context) {
+        super(context, R.layout.listdatahadiah, data);
         this.data = data;
-        this.activity = activity;
+        this.mContext=context;
     }
 
     @Override
-    public int getCount() {
-        return data.size();
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        DataHadiahController data = getItem(position);
 
-    @Override
-    public Object getItem(int location) {
-        return data.get(location);
-    }
+        ViewHolder viewHolder;
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
+        final View result;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            viewHolder = new ViewHolder();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.listdatahadiah, parent, false);
 
-        View v = convertView;
+            viewHolder.idhadiah = (TextView) convertView.findViewById(R.id.listidhadiah);
+            viewHolder.namahadiah = (TextView) convertView.findViewById(R.id.listnamahadiah);
+            viewHolder.fotohadiah = (NetworkImageView) convertView.findViewById(R.id.listfotohadiah);
+            viewHolder.jumlahpoint = (TextView) convertView.findViewById(R.id.listjumlah_point);
 
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(activity);
-            v = vi.inflate(R.layout.listdatahadiah, null);
+            result = convertView;
 
-            idhadiah = (TextView) v.findViewById(R.id.listidhadiah);
-            namahadiah = (TextView) v.findViewById(R.id.listnamahadiah);
-            fotohadiah = (NetworkImageView) v.findViewById(R.id.listfotohadiah);
-            jumlahpoint = (TextView) v.findViewById(R.id.listjumlah_point);
-
-            DataHadiahController d = data.get(position);
-
-            idhadiah.setText(String.valueOf(d.getId_hadiah()));
-            namahadiah.setText(String.valueOf(d.getNama_hadiah()));
-            jumlahpoint.setText(String.valueOf(d.getJumlah_point()));
-
-            mImageLoader = MySingleton.getInstance(this.activity.getApplicationContext()).getImageLoader();
-            IMAGE_URL = url + String.valueOf(d.getFoto_hadiah());
-            fotohadiah.setImageUrl(IMAGE_URL, mImageLoader);
+            convertView.setTag(viewHolder);
 
 
-        }else{
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+            result = convertView;
 
         }
 
-        return v;
+        viewHolder.idhadiah.setText(String.valueOf(data.getId_hadiah()));
+        viewHolder.namahadiah.setText(String.valueOf(data.getNama_hadiah()));
+        viewHolder.jumlahpoint.setText(String.valueOf(data.getJumlah_point()));
+
+        mImageLoader = MySingleton.getInstance(getContext()).getImageLoader();
+        IMAGE_URL = url + String.valueOf(data.getFoto_hadiah());
+        viewHolder.fotohadiah.setImageUrl(IMAGE_URL, mImageLoader);
+
+        return convertView;
     }
 
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }

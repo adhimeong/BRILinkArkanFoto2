@@ -85,7 +85,7 @@ public class PointKuFragment extends Fragment {
         listView = (ListView)view.findViewById(R.id.listview01);
         dataController.clear();
 
-        adapter = new DataHadiahAdapter(getActivity(), dataController );
+        adapter = new DataHadiahAdapter(dataController, getActivity() );
 
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
