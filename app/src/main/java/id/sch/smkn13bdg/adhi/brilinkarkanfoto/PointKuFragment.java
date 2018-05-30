@@ -32,6 +32,8 @@ import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataHadiahController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
 
 
 /**
@@ -103,7 +105,46 @@ public class PointKuFragment extends Fragment {
                     //seting selisih
                     sisaproses.setText("Selamat Anda berhasil ");
                     //pengumaman
-                    FancyToast.makeText(getActivity().getApplicationContext(),"Hadiah dapat anda ambil sekarang",FancyToast.LENGTH_LONG, FancyToast.SUCCESS,true).show();
+                    final PrettyDialog pDialog = new PrettyDialog(getActivity());
+                    pDialog
+                            .setTitle("SELAMAT")
+                            .setTitleColor(R.color.colorAccent)
+                            .setMessage("ANDA MAU MENUKARKAN POINT ANDA ?")
+                            .setAnimationEnabled(false)
+                            .setIcon(
+                                    R.drawable.pdlg_icon_info,     // icon resource
+                                    R.color.colorAccent,      // icon tint
+                                    new PrettyDialogCallback() {   // icon OnClick listener
+                                        @Override
+                                        public void onClick() {
+                                            pDialog.dismiss();
+                                        }
+                                    })
+                            .addButton(
+                                    "YA",     // button text
+                                    R.color.pdlg_color_white,  // button text color
+                                    R.color.colorPrimaryDark,  // button background color
+                                    new PrettyDialogCallback() {  // button OnClick listener
+                                        @Override
+                                        public void onClick() {
+                                            // Do what you gotta do
+                                        }
+                                    }
+                            )
+                            .addButton(
+                                    "TIDAK",
+                                    R.color.pdlg_color_white,
+                                    R.color.colorAccent,
+                                    new PrettyDialogCallback() {
+                                        @Override
+                                        public void onClick() {
+                                            pDialog.dismiss();
+                                        }
+                                    }
+                            )
+                            .show();
+
+
                 }else{
                     //perhitungan persentase
                     float a = Float.intBitsToFloat(pointperolehanint);
@@ -117,6 +158,9 @@ public class PointKuFragment extends Fragment {
                     int selisihint = pointhadiah - pointperolehanint;
                     String selisih = String.valueOf(selisihint);
                     sisaproses.setText("Anda perlu " + selisih + " transaksi lagi ");
+                    String sisaprosestxt = "Anda perlu " + selisih + " transaksi lagi ";
+
+                    FancyToast.makeText(getActivity().getApplicationContext(),sisaprosestxt,FancyToast.LENGTH_SHORT, FancyToast.WARNING,true).show();
                 }
 
             }

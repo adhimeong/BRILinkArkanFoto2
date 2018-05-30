@@ -32,10 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.BannerAdapter;
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.DataHadiahAdapter;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.adapter.DataPerolehanPelangganAdapter;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataBannerController;
-import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataHadiahController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.DataPerolehanPelangganController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset.UserController;
 import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.MySingleton;
