@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PointKuFragment()).commit();
         } else if(id == R.id.nav_profil){
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
+        } else if(id == R.id.nav_kartuku){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QrCardFragment()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

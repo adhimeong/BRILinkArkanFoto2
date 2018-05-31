@@ -76,7 +76,7 @@ public class UtamaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_utama, container, false);
+        final View view = inflater.inflate(R.layout.fragment_utama, container, false);
 
         UserController user = SharedPrefManager.getInstance(getActivity().getApplicationContext()).getUser();
         no_kartu = user.getNo_kartu();
@@ -96,7 +96,7 @@ public class UtamaFragment extends Fragment {
         sliderDotspanel = (LinearLayout) view.findViewById(R.id.SliderDots);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
+
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }

@@ -127,7 +127,8 @@ public class PointKuFragment extends Fragment {
                                     new PrettyDialogCallback() {  // button OnClick listener
                                         @Override
                                         public void onClick() {
-                                            // Do what you gotta do
+                                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QrCardFragment()).commit();
+                                            pDialog.dismiss();
                                         }
                                     }
                             )
