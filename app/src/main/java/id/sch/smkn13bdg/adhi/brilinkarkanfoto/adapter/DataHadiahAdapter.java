@@ -91,7 +91,6 @@ public class DataHadiahAdapter extends ArrayAdapter<DataHadiahController> implem
         return convertView;
     }
 
-
     @Override
     public void onClick(View view) {
 

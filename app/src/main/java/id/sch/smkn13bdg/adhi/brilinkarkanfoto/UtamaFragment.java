@@ -268,7 +268,7 @@ public class UtamaFragment extends Fragment {
                                 //String id_banner = jsonobject.getString("id,_banner").trim();
                                 //String nama_banner = jsonobject.getString("nama_banner").trim();
                                 String foto_banner = jsonobject.getString("foto_banner").trim();
-                                String fotobanner = foto_banner.replaceAll("'\'","cek");
+                                String fotobanner = foto_banner.toString();
 
                                 DataBannerController d4 = new DataBannerController();
                                 d4.setFoto_banner(fotobanner);
@@ -299,7 +299,6 @@ public class UtamaFragment extends Fragment {
                         }
 
                         dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.ic_radio_button_checked_black_24dp));
-
                         pd.hide();
                     }
                 },

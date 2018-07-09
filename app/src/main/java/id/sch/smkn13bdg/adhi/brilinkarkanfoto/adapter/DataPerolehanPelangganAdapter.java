@@ -35,8 +35,11 @@ public class DataPerolehanPelangganAdapter extends ArrayAdapter<DataPerolehanPel
 
     ImageLoader mImageLoader;
     String url = Server.url_server +"app/images/";
+    String fotopelangganurl, namapelanggan;
+    String fotodefault = "defaultprofile.jpg";
     String IMAGE_URL ;
     Context mContext;
+
 
     private static class ViewHolder {
         TextView tglpasif;
@@ -90,12 +93,25 @@ public class DataPerolehanPelangganAdapter extends ArrayAdapter<DataPerolehanPel
         }
 
         viewHolder.tglpasif.setText(String.valueOf(data.getTanggal_pasif()));
-        viewHolder.namapelanggan.setText(String.valueOf(data.getNama_pelanggan()));
         viewHolder.jumlahpoint.setText(String.valueOf(data.getJumlah_point()));
+        fotopelangganurl = data.getFoto_pelanggan();
+        namapelanggan = data.getNama_pelanggan();
 
-        mImageLoader = MySingleton.getInstance(getContext()).getImageLoader();
-        IMAGE_URL = url + String.valueOf(data.getFoto_pelanggan());
-        viewHolder.fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+        if (namapelanggan.equals("null")){
+            viewHolder.namapelanggan.setText("Belum ada Nama");
+        }else{
+            viewHolder.namapelanggan.setText(namapelanggan);
+        }
+
+        if (fotopelangganurl.equals("null")){
+            mImageLoader = MySingleton.getInstance(getContext()).getImageLoader();
+            IMAGE_URL = url + String.valueOf(fotodefault);
+            viewHolder.fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+        }else{
+            mImageLoader = MySingleton.getInstance(getContext()).getImageLoader();
+            IMAGE_URL = url + String.valueOf(fotopelangganurl);
+            viewHolder.fotopelanggan.setImageUrl(IMAGE_URL, mImageLoader);
+        }
 
         return convertView;
     }
