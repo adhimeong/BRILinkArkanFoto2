@@ -9,4 +9,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_input_id_card">InputIdCardActivity</string>
+    <string-array name="jenis_transaksi">
+        <item>JENIS TRANSAKSI</item>
+        <item>STOR TUNAI</item>
+        <item>TARIK TUNAI</item>
+        <item>TRANSFER</item>
+    </string-array>
+    <string-array name="bank">
+        <item>BANK TUJUAN</item>
+        <item>BRI</item>
+        <item>BNI</item>
+        <item>MANDIRI</item>
+        <item>BCA</item>
+        <item>BJB</item>
+        <item>MUAMALAT</item>
+        <item>LAINNYA</item>
+    </string-array>
 </resources>

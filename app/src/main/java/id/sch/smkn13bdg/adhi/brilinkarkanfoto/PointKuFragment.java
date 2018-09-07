@@ -3,6 +3,8 @@ package id.sch.smkn13bdg.adhi.brilinkarkanfoto;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +42,8 @@ import libs.mjn.prettydialog.PrettyDialogCallback;
  * A simple {@link Fragment} subclass.
  */
 public class PointKuFragment extends Fragment {
+
+    public static String KEY_FRG = "idhadiah_fragment";
 
     //progres chart
     ArcProgress arcProgress1;
@@ -84,6 +88,7 @@ public class PointKuFragment extends Fragment {
         tanggalpasif = (TextView)view.findViewById(R.id.texttanggalpasif);
         sisaproses = (TextView) view.findViewById(R.id.textsisatransaksi);
 
+        //list hadiah
         listView = (ListView)view.findViewById(R.id.listview01);
         dataController.clear();
 
@@ -93,7 +98,7 @@ public class PointKuFragment extends Fragment {
         adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+                                    final int position, long id) {
 
                 String datajumlahpoint = dataController.get(position).getJumlah_point();
                 int pointhadiah = Integer.parseInt(datajumlahpoint);
@@ -127,7 +132,17 @@ public class PointKuFragment extends Fragment {
                                     new PrettyDialogCallback() {  // button OnClick listener
                                         @Override
                                         public void onClick() {
-                                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QRCodeFragment()).commit();
+
+                                            String idhadiah = dataController.get(position).getId_hadiah();
+
+                                            QRCodeFragment fragment = new QRCodeFragment();
+                                            Bundle args = new Bundle();
+                                            args.putString("idhadiah", idhadiah);
+                                            fragment.setArguments(args);
+
+                                            getFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
+
+                                            //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new QRCodeFragment()).commit ();
                                             pDialog.dismiss();
                                         }
                                     }

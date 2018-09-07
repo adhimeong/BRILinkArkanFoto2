@@ -6,7 +6,6 @@ package id.sch.smkn13bdg.adhi.brilinkarkanfoto.getset;
 
 public class UserController {
 
-    private String id_pelanggan;
     private String nama_pelanggan;
     private String no_kartu;
     private String kontak;
@@ -16,20 +15,11 @@ public class UserController {
         this.no_kartu = no_kartu;
     }
 
-    public UserController(String id_pelanggan, String nama_pelanggan, String no_kartu ) {
-        this.id_pelanggan = id_pelanggan;
+    public UserController(String nama_pelanggan, String no_kartu ) {
         this.nama_pelanggan = nama_pelanggan;
         this.no_kartu = no_kartu;
     }
 
-
-    public String getId_pelanggan() {
-        return id_pelanggan;
-    }
-
-    public void setId_pelanggan(String id_pelanggan) {
-        this.id_pelanggan = id_pelanggan;
-    }
 
     public String getNama_pelanggan() {
         return nama_pelanggan;

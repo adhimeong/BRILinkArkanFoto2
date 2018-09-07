@@ -16,7 +16,6 @@ public class SharedPrefManager {
     private static final String SHARED_PREF_NAME = "brilinkarkan";
     private static final String KEY_NAME = "nama_pelanggan";
     private static final String KEY_CARD = "no_kartu";
-    private static final String KEY_ID = "id_pelanggan";
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -37,7 +36,6 @@ public class SharedPrefManager {
     public void userLogin(UserController user) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_ID, user.getId_pelanggan());
         editor.putString(KEY_NAME, user.getNama_pelanggan());
         editor.putString(KEY_CARD, user.getNo_kartu());
         editor.apply();
@@ -53,7 +51,6 @@ public class SharedPrefManager {
     public UserController getUser() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new UserController(
-                sharedPreferences.getString(KEY_ID, null),
                 sharedPreferences.getString(KEY_NAME, null),
                 sharedPreferences.getString(KEY_CARD, null)
         );

@@ -1,6 +1,5 @@
 package id.sch.smkn13bdg.adhi.brilinkarkanfoto;
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,7 +41,6 @@ import id.sch.smkn13bdg.adhi.brilinkarkanfoto.volley.Server;
 
 import static android.app.Activity.RESULT_OK;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -62,7 +60,7 @@ public class UpdateProfilFragment extends Fragment {
     String urlupdate = Server.url_server +urldata;
 
     EditText editnama, editemail, editkontak, editalamat;
-    String idpengguna, nokartu, message;
+    String nokartu, message;
     int success;
 
     Bitmap bitmap, decoded;
@@ -94,7 +92,6 @@ public class UpdateProfilFragment extends Fragment {
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
 
-        idpengguna = user.getId_pelanggan();
         nokartu = user.getNo_kartu();
 
         //memanggil data user
@@ -180,73 +177,138 @@ public class UpdateProfilFragment extends Fragment {
 
     private void updatedatapengguna() {
 
+        pd.show();
+
         final String namaupdate = editnama.getText().toString();
         final String emailupdate = editemail.getText().toString();
         final String kontakupdate = editkontak.getText().toString();
         final String alamatupdate = editalamat.getText().toString();
-        final String fotoupdate = getStringImage(decoded);
+        final String fotoupdate;
 
-        pd.show();
+        if(decoded == null){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                urlupdate,
-                new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    urlupdate,
+                    new Response.Listener<String>() {
 
-                    @Override
-                    public void onResponse(String response) {
+                        @Override
+                        public void onResponse(String response) {
 
-                        Log.d("Response: ",response.toString());
-                        Log.d("foto yang dipilih: ", fotoupdate);
-                        try {
-                            JSONObject jObj = new JSONObject(response);
-                            success = jObj.getInt("success");
-                            message = jObj.getString("message");
+                            Log.d("Response: ",response.toString());
 
-                            // Cek error node pada json
-                            if (success == 1) {
-                                Log.d("Add/update", jObj.toString());
-                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
-                                FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_SHORT, FancyToast.SUCCESS,true).show();
-                            } else {
-                                FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_LONG, FancyToast.WARNING,true).show();
+                            try {
+                                JSONObject jObj = new JSONObject(response);
+                                success = jObj.getInt("success");
+                                message = jObj.getString("message");
+
+                                // Cek error node pada json
+                                if (success == 1) {
+                                    Log.d("Add/update", jObj.toString());
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
+                                    FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_SHORT, FancyToast.SUCCESS,true).show();
+                                } else {
+                                    FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_LONG, FancyToast.WARNING,true).show();
+                                }
+                            } catch (JSONException e) {
+                                // JSON error
+                                e.printStackTrace();
                             }
-                        } catch (JSONException e) {
-                            // JSON error
-                            e.printStackTrace();
-                        }
-                        pd.hide();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if(error != null){
-
-                            FancyToast.makeText(getActivity().getApplicationContext(),"Terjadi ganguan dengan koneksi server",FancyToast.LENGTH_LONG, FancyToast.ERROR,true).show();
                             pd.hide();
                         }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if(error != null){
+
+                                FancyToast.makeText(getActivity().getApplicationContext(),"Terjadi ganguan dengan koneksi server",FancyToast.LENGTH_LONG, FancyToast.ERROR,true).show();
+                                pd.hide();
+                            }
+                        }
                     }
-                }
 
-        )
-        {
-            @Override
-            protected Map<String, String> getParams()
+            )
             {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("no_kartu", nokartu);
-                params.put("nama", namaupdate);
-                params.put("email", emailupdate);
-                params.put("foto", fotoupdate);
-                params.put("kontak", kontakupdate);
-                params.put("alamat", alamatupdate);
-                return params;
-            }
-        };
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("no_kartu", nokartu);
+                    params.put("nama", namaupdate);
+                    params.put("email", emailupdate);
+                    params.put("kontak", kontakupdate);
+                    params.put("alamat", alamatupdate);
+                    return params;
+                }
+            };
 
-        MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+            MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+
+        }else{
+
+            fotoupdate = getStringImage(decoded);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    urlupdate,
+                    new Response.Listener<String>() {
+
+                        @Override
+                        public void onResponse(String response) {
+
+                            Log.d("Response: ",response.toString());
+
+                            try {
+                                JSONObject jObj = new JSONObject(response);
+                                success = jObj.getInt("success");
+                                message = jObj.getString("message");
+
+                                // Cek error node pada json
+                                if (success == 1) {
+                                    Log.d("Add/update", jObj.toString());
+                                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new ProfilFragment()).commit();
+                                    FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_SHORT, FancyToast.SUCCESS,true).show();
+                                } else {
+                                    FancyToast.makeText(getActivity().getApplicationContext(),message,FancyToast.LENGTH_LONG, FancyToast.WARNING,true).show();
+                                }
+                            } catch (JSONException e) {
+                                // JSON error
+                                e.printStackTrace();
+                            }
+                            pd.hide();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            if(error != null){
+
+                                FancyToast.makeText(getActivity().getApplicationContext(),"Terjadi ganguan dengan koneksi server",FancyToast.LENGTH_LONG, FancyToast.ERROR,true).show();
+                                pd.hide();
+                            }
+                        }
+                    }
+
+            )
+            {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("no_kartu", nokartu);
+                    params.put("nama", namaupdate);
+                    params.put("email", emailupdate);
+                    params.put("foto", fotoupdate);
+                    params.put("kontak", kontakupdate);
+                    params.put("alamat", alamatupdate);
+                    return params;
+                }
+            };
+
+            MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(stringRequest);
+
+        }
+
     }
-
 
     public void load_datapelanggan_from_server2() {
         pd.show();
@@ -267,11 +329,8 @@ public class UpdateProfilFragment extends Fragment {
 
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
 
-                                 String id_pelanggan = jsonobject.getString("id_pelanggan").trim();
-                                 String no_kartu= jsonobject.getString("no_kartu").trim();
                                  String nama = jsonobject.getString("nama_pelanggan").trim();
                                  String foto = jsonobject.getString("foto");
-                                 String password = jsonobject.getString("password").trim();
                                  String alamat = jsonobject.getString("alamat").trim();
                                  String kontak = jsonobject.getString("kontak").trim();
                                  String email = jsonobject.getString("email").trim();

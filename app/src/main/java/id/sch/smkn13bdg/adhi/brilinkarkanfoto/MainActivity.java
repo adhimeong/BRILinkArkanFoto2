@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_peringkat) {
             // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new UtamaFragment()).commit();
+        }else if(id == R.id.nav_tansaksiku){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new TransaksiFragment()).commit();
         } else if (id == R.id.nav_pointku) {
             // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new PointKuFragment()).commit();

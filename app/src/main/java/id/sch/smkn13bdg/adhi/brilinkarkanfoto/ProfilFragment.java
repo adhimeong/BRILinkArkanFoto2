@@ -48,7 +48,7 @@ public class ProfilFragment extends Fragment {
 
     TextView viewnama, viewnokartu, viewkontak, viewalamat, viewemail;
     Button logoutbtn, updatebtn;
-    String idpengguna, nokartu;
+    String nokartu;
 
 
     public ProfilFragment() {
@@ -76,7 +76,6 @@ public class ProfilFragment extends Fragment {
         pd = new ProgressDialog(getActivity());
         pd.setMessage("loading");
 
-        idpengguna = user.getId_pelanggan();
         nokartu = user.getNo_kartu();
         viewnokartu.setText(nokartu);
 
@@ -120,11 +119,8 @@ public class ProfilFragment extends Fragment {
 
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
 
-                                String id_pelanggan = jsonobject.getString("id_pelanggan").trim();
-                                String no_kartu= jsonobject.getString("no_kartu").trim();
                                 String nama = jsonobject.getString("nama_pelanggan").trim();
                                 String foto = jsonobject.getString("foto");
-                                String password = jsonobject.getString("password").trim();
                                 String alamat = jsonobject.getString("alamat").trim();
                                 String kontak = jsonobject.getString("kontak").trim();
                                 String email = jsonobject.getString("email").trim();

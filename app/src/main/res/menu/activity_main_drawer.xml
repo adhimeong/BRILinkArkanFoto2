@@ -9,6 +9,10 @@
             android:icon="@drawable/ic_assessment_black_24dp"
             android:title="Peringkat" />
         <item
+            android:id="@+id/nav_tansaksiku"
+            android:icon="@drawable/ic_local_atm_black_24dp"
+            android:title="Transaksi" />
+        <item
             android:id="@+id/nav_pointku"
             android:icon="@drawable/ic_cake_black_24dp"
             android:title="Point Rewards" />

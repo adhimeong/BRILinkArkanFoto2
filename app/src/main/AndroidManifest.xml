@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -31,12 +36,14 @@
             android:name=".InputIdCardActivity"
             android:label="@string/title_activity_input_id_card"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ScanCardActivity"></activity>
+        <activity android:name=".ScanCardActivity" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
+        <activity android:name=".PrintActivity" />
+        <activity android:name=".DeviceListActivity"></activity>
     </application>
 
 </manifest>

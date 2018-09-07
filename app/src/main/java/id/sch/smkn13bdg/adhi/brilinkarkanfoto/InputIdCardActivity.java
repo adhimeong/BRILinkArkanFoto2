@@ -62,6 +62,7 @@ public class InputIdCardActivity extends AppCompatActivity {
             return;
         }
 
+        //permisi kamera
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, PERMISSION_REQUEST);
         }
@@ -82,7 +83,7 @@ public class InputIdCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 idkartu = result.getText().toString();
-                load_data_from_server();
+                load_data_from_server(idkartu);
             }
         });
     }
@@ -101,11 +102,10 @@ public class InputIdCardActivity extends AppCompatActivity {
                 });
             }
         }
-
     }
 
 
-    public void load_data_from_server() {
+    public void load_data_from_server(final String a ) {
         pd.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -124,11 +124,10 @@ public class InputIdCardActivity extends AppCompatActivity {
 
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
 
-                                String idpelanggan = jsonobject.getString("id_pelanggan").trim();
                                 String nama_pelanggan = jsonobject.getString("nama_pelanggan").trim();
                                 String no_kartu = jsonobject.getString("no_kartu").trim();
 
-                                UserController user = new UserController(idpelanggan, nama_pelanggan, no_kartu);
+                                UserController user = new UserController( nama_pelanggan, no_kartu);
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                                 finish();
 
@@ -158,7 +157,7 @@ public class InputIdCardActivity extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("no_kartu", idkartu);
+                params.put("no_kartu", a);
                 return params;
             }
         };

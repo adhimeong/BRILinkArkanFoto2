@@ -29,7 +29,7 @@ public class BannerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private List<DataBannerController> bannerImg;
     private ImageLoader imageLoader;
-    String url = Server.url_server +"img/banner/";
+    String url = Server.url_server +"app/banner/";
     String IMAGE_URL ;
 
     public BannerAdapter(List bannerImg,Context context) {
